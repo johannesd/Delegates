@@ -30,7 +30,7 @@ public class Delegates<Delegate: Any> {
         delegates.allObjects.map({ $0 as! Delegate }).forEach(block)
     }
     
-    internal var allObjects: [Any] {
-        return delegates.allObjects
+    public var allObjects: [Delegate] {
+        return delegates.allObjects.map({ $0 as! Delegate })
     }
 }
