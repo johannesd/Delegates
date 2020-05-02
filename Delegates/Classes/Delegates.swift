@@ -26,11 +26,19 @@ public class Delegates<Delegate: Any> {
         }
     }
     
-    public func forEach(_ block: (Delegate) -> ()) {
-        delegates.allObjects.map({ $0 as! Delegate }).forEach(block)
-    }
-    
     public var allObjects: [Delegate] {
         return delegates.allObjects.map({ $0 as! Delegate })
+    }
+    
+    public func forEach(_ block: (Delegate) -> ()) {
+        allObjects.forEach(block)
+    }
+
+    public func any(_ block: (Delegate) -> Bool) -> Bool {
+        return allObjects.first(where: block) != nil
+    }
+
+    public func all(_ block: (Delegate) -> Bool) -> Bool {
+        return allObjects.first(where: { !block($0) }) == nil
     }
 }
