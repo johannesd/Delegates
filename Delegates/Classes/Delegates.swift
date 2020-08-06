@@ -41,4 +41,10 @@ public class Delegates<Delegate: Any> {
     public func all(_ block: (Delegate) -> Bool) -> Bool {
         return allObjects.first(where: { !block($0) }) == nil
     }
+    
+    public func collect<Result>(_ block: (Delegate) -> Result) -> [Result] {
+        return allObjects.reduce(into: []) { (result, delegate) in
+            result.append(block(delegate))
+        }
+    }
 }
